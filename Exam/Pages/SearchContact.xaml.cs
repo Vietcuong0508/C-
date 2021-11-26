@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exam.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,15 +24,22 @@ namespace Exam.Pages
     /// </summary>
     public sealed partial class SearchContact : Page
     {
+        private ContactModel contactModel = new ContactModel();
         public SearchContact()
         {
             this.InitializeComponent();
+            this.Loaded += SearchContact_Loaded;
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(460, 400));
+        }
+        private void SearchContact_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            var result = contactModel.SearchByKeyword(txtName.Text);
+            MyListView.ItemsSource = result;
         }
     }
 }

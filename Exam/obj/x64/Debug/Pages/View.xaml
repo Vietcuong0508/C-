@@ -8,13 +8,14 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <NavigationView PaneTitle="Contact" SelectionChanged="NavigationView_SelectionChanged">
+    <NavigationView x:ConnectionId='2' PaneTitle="Contact"                                                   >
         <NavigationView.MenuItems>
             <NavigationViewItem Tag="Create" Icon="Add" Content="Create Contact"/>
             <NavigationViewItem Tag="Search" Icon="Find" Content="Search Contact"/>
             <NavigationViewItemSeparator/>
             <NavigationViewItem Tag="List" Icon="List" Content="List Contact"/>
         </NavigationView.MenuItems>
-        <Frame x:Name="contentFrame"/>
+        <Frame x:ConnectionId='3' x:Name="contentFrame"/>
     </NavigationView>
 </Page>
+

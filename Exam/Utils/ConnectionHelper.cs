@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Exam.Utils
 {
-    class ConnectionHelper
+    public class ConnectionHelper
     {
     }
 }

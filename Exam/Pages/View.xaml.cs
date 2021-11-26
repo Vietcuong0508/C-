@@ -45,6 +45,9 @@ namespace Exam.Pages
                 case "Search":
                     this.contentFrame.Navigate(typeof(Pages.SearchContact));
                     break;
+                case "List":
+                    this.contentFrame.Navigate(typeof(MainPage));
+                    break;
             }
         }
     }

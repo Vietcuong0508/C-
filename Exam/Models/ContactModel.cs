@@ -3,10 +3,12 @@ using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace Exam.Models
 {
-    class ContactModel
+    public class ContactModel
     {
         private static string _insertStatementTemplate = "INSERT INTO contacts (Name, Phone)" +
             " values (@name, @phone)";
@@ -67,39 +69,43 @@ namespace Exam.Models
             return contacts;
         }
 
-        public List<Contact> SearchByKeyword(string keyword)
+        public async Task<List<Contact>> SearchByKeyword(string keyword)
         {
             List<Contact> contacts = new List<Contact>();
             try
             {
-                // mở kết nối.
-                using (SqliteConnection cnn = new SqliteConnection($"FileName={DatabaseMigration._databasePath}"))
+                //
+                using (SqliteConnection cnn = new SqliteConnection($"Filename={DatabaseMigration._databasePath}"))
                 {
                     cnn.Open();
-                    // tạo câu lệnh.
-                    //var select = $"select * from notes where Title like '%{keyword}%'";
-                    //SqliteCommand cmd = new SqliteCommand(select, cnn);
+                    //Tạo câu lệnh
                     SqliteCommand cmd = new SqliteCommand(_selectStatementWithConditionTemplate, cnn);
                     cmd.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
-                    Debug.WriteLine(cmd.CommandText);
-                    // bắn lệnh vào và lấy dữ liệu.
+                    //Bắn lệnh vào và lấy dữ liệu.
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        var name = Convert.ToString(reader["Name"]);
                         var phone = Convert.ToString(reader["Phone"]);
+                        var name = Convert.ToString(reader["Name"]);
                         var contact = new Contact()
                         {
-                            Name = name,
                             Phone = phone,
+                            Name = name
                         };
                         contacts.Add(contact);
                     }
+                    if (reader == null)
+                    {
+                        ContentDialog contentDialog = new ContentDialog();
+                        contentDialog.Title = "Khong tim thay";
+                        contentDialog.PrimaryButtonText = "Khong tim thay";
+                        await contentDialog.ShowAsync();
+                    }
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Debug.WriteLine(ex.Message);
+                Console.WriteLine(e.Message);
             }
             return contacts;
         }

@@ -31,7 +31,6 @@ namespace Exam.Models
         public async static Task GenerateData()
         {
             ContactModel noteModel = new ContactModel();
-            noteModel.ClearData();
             noteModel.Save(new Contact()
             {
                 Name = "Cuong",

@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <TextBlock Text="Add Contact" Margin="20 20 0 10" 
-                       FontSize="20" FontWeight="Bold"/>
+                       FontSize="20" FontWeight="Bold" />
         <NavigationViewItemSeparator/>
         <TextBox x:ConnectionId='2' x:Name="txtName" Header="Name" Width="300" Margin="10 0 10 0"/>
         <TextBox x:ConnectionId='3' x:Name="txtPhone" Header="PhoneNumber" Width="300" Margin="10 20 10 0"/>
